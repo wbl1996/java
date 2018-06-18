@@ -1,8 +1,19 @@
 package com.wang.springbootwebdemo.entities;
 
-public class User {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "users")     //指定和哪个表对应，若省略，表名是类名
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
     String username;
-    int age;
+    @Column
+    String password;
 
     public String getUsername() {
         return username;
@@ -12,19 +23,11 @@ public class User {
         this.username = username;
     }
 
-    public int getAge() {
-        return age;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", age=" + age +
-                '}';
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
