@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var id = document.getElementById("id");
+            var name = document.getElementById("name");
+            var add = document.getElementById("add");
+            var query = document.getElementById("query");
+            var request = indexedDB.open('animals', 1);
+            var data = [];
+            request.onupgradeneeded = function () {
+                var rq = this.result;
+                var store = rq.createObjectStore('Objects', {keyPath: 'id'});
+                store.createIndex("id", "id", {unique: true});
+                store.createIndex("name", "name", {unique: false});
+
+            }
+            request.onsuccess = function () {
+                console.log("数据库连接成功!");
+                var rq = this.result;
+                add.onclick = function () {
+                    var tx = rq.transaction('Objects', 'readwrite');
+                    var store = tx.objectStore('Objects');
+                    store.add({id: parseInt(id.value), name: name.value});
+                    alert("添加数据成功 ！");
+                }
+                query.onclick = function () {
+                    var tx = rq.transaction('Objects', 'readwrite');
+                    var store = tx.objectStore('Objects');
+                    var rq1 = store.openCursor();
+                    rq1.onsuccess = function (e) {
+                        var cursor = e.target.result;
+                        if (cursor) {
+                            console.log("id:" + cursor.value.id + ",name:" + cursor.value.name);
+                            data.push("id:"+cursor.value.id+",name:"+cursor.value.name);
+                            cursor.continue();
+                        }
+                        for (var i=0;i<data.length;i++){
+                            console.log(data[i]);
+
+                        }
+                    }
+
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+    <label for="id">ID</label>
+    <input type="text" id="id">
+    <br>
+    <label for="name">name</label>
+    <input type="text" id="name">
+    <button id="add" style="width:40px;height:20px">add</button>
+    <button id="query" style="width:40px;height:20px">query</button>
+</div>
+
+</body>
+</html>
