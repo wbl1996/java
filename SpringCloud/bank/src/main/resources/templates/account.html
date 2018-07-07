@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css"  href="/asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.css}" rel="stylesheet">
+    <title>Account</title>
+</head>
+<body>
+<!--<p th:text="${session.account.getAccountname()}"></p>
+<p th:text="${session.account.getPassword()}"></p>
+<p th:text="${session.account.getBalance()}"></p>-->
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <td>用户名</td>
+        <td>余额</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="account : ${session.list}">
+        <td th:text="${account.}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

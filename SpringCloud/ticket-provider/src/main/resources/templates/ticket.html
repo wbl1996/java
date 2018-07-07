@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css"  href="/asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.css}" rel="stylesheet">
+    <title>Title</title>
+</head>
+<body>
+<table class="table table-bordered">
+    <thead>
+<tr>
+    <th>序号</th>
+    <th>地点</th>
+    <th>时间</th>
+    <th>价格</th>
+    <th>操作</th>
+</tr>
+    </thead>
+    <tbody>
+<tr th:each="ticket : ${session.list}">
+    <!--<td th:text="${ticket.getId()}">id</td>
+    <td th:text="${ticket.getPlace()}">place</td>
+    <td th:text="${ticket.getTime()}">time</td>
+    <td th:text="${ticket.getPrice()}">price</td>
+    <th><button>确认</button></th>-->
+    <td>[[${ticket.getId()}]]</td>
+    <td>[[${ticket.getPlace()}]]</td>
+    <td>[[${ticket.getTime()}]]</td>
+    <td>[[${ticket.getPrice()}]]</td>
+    <td><button>操作</button></td>
+</tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div><p class="second"></p></div>
+<script th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script>
+    $(function () {
+        var time = setInterval(showTime,1000);
+        var second = 5;
+        function showTime() {
+            if(second==0){
+                window.location = "/main.html";
+                clearInterval(time);
+            }
+            $(".second").html('付款成功，<span>'+second+'</span>秒后将<a href="/main.html"> 返回主页面.</a>');
+            second--;
+        }
+    })
+</script>
+</body>
+</html>

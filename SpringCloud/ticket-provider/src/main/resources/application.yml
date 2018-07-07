@@ -1,0 +1,20 @@
+server:
+  port: 8001
+eureka:
+  instance:
+    prefer-ip-address: true  #注册服务的时候使用服务的IP地址
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka
+spring:
+  application:
+    name: provider-ticket
+  datasource:
+    url: jdbc:mysql://localhost:3306/tickets
+    password: wbl.123
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: none       #更新或创建表
+    show-sql: true         #控制台显示sql语句

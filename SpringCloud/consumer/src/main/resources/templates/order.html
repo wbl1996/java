@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单</title>
+</head>
+<body>
+<p>地点:<span th:text="${session.place}"></span></p>
+<p>时间:<span th:text="${session.time}"></span></p>
+<p>价格:<span th:text="${session.price}"></span></p>
+<a th:href="@{/ensure(price=${session.price})}">付款</a> <a href="/cancel">取消</a>
+</body>
+</html>
