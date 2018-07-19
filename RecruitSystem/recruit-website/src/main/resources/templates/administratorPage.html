@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../static/asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+</head>
+<style>
+    .info{
+        margin-top: 20px;
+        display: block;
+        padding:60px;
+        font-family: 宋体;
+        font-size: 18px;
+        color: #8c8c8c;
+        font-weight: bold;
+    }
+    .display-none{
+        display: none;
+    }
+    a{
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .pos{
+        margin-top: 20px;
+    }
+    .welcome{
+        padding: 10px;
+        font-size: 12px;
+        font-family: "宋体";
+    }
+    .info{
+        margin-top: 20px;
+        display: block;
+        padding:60px;
+        font-family: 宋体;
+        font-size: 18px;
+        color: #8c8c8c;
+        font-weight: bold;
+    }
+    .logo{
+        margin: 20px 0 0 0;
+    }
+</style>
+<body>
+<div class="container" id="head-logo">
+    <div class="col-md-8">
+        <img src="../static/asserts/image/logo.png" th:src="@{/asserts/image/logo.png}" class="logo">
+    </div>
+    <div class="col-md-4 welcome text-right">
+        欢迎您，[[${session.administrator.getUsername()}]]！
+        <a  href="/logout">退出</a>
+    </div>
+</div>
+<nav class="navbar navbar-default pos" role="navigation" id="nav">
+    <div class="container">
+        <!--<div class="navbar-header">-->
+        <!--<a id="getInfo" href="#" class="navbar-brand">个人信息</a>-->
+        <!--</div>-->
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a id="getStudentInfo" class="navbar-brand">学生信息</a></li>
+                <li><a id="getEnterpriseInfo" class="navbar-brand">企业信息</a></li>
+                <li><a id="getResume" class="navbar-brand">应聘列表</a></li>
+                <li><a id="getList" class=navbar-brand"">招聘列表</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container display-none" id="table1">
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <td>学号</td>
+            <td>姓名</td>
+            <td>年级</td>
+            <td>性别</td>
+        </tr>
+        </thead>
+        <tbody  id="studentInfo">
+        </tbody>
+    </table>
+</div>
+<div class="container display-none" id="table2">
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <td>组织机构代码</td>
+            <td>公司名称</td>
+            <td>地址</td>
+            <td>HR</td>
+        </tr>
+        </thead>
+        <tbody  id="enterpriseInfo">
+
+        </tbody>
+    </table>
+</div>
+<div  class="container display-none" id="table3">
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <td>学号</td>
+            <td>姓名</td>
+            <td>应聘公司</td>
+            <td>岗位</td>
+            <td>是否已被录取</td>
+        </tr>
+        </thead>
+        <tbody id="applyInfoAdmin">
+
+        </tbody>
+    </table>
+</div>
+<div class="container display-none" id="table4">
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <td>组织机构代码</td>
+            <td>公司名称</td>
+            <td>招聘岗位</td>
+            <td>薪金</td>
+            <td>地址</td>
+        </tr>
+        </thead>
+        <tbody id="listInfo">
+        </tbody>
+    </table>
+</div>
+<script th:src="@{/asserts/js/jquery.js}"></script>
+<script>
+    var students = [];
+    $("#getStudentInfo").click(function () {
+        $("#nav").nextAll().addClass("display-none");
+        $("#table1").removeClass("display-none");
+        $.ajax({
+            method:"Post",
+            url:"/getStudentInfo",
+            success:function (data) {
+                var data2 = eval(data);
+                for(var i in data2){
+                    if(students.indexOf(data2[i].id)==-1) {
+                        students.push(data2[i].id);
+                        $("#studentInfo").append("<tr><td>" + data2[i].id + "</td>" +
+                            "<td>" + data2[i].name + "</td>" +
+                            "<td>" + data2[i].grade + "</td>" +
+                            "<td>" + data2[i].sex + "</td>" +
+                            "<td><button onclick='deleteStudent(this)'>删除</button></td></tr>");
+                    }
+                }
+            }
+        });
+    });
+    var enterprises = [];
+    $("#getEnterpriseInfo").click(function () {
+        $("#nav").nextAll().addClass("display-none");
+        $("#table2").removeClass("display-none");
+        $.ajax({
+            method:"POST",
+            url:"/getEnterpriseInformation",
+            success:function (data) {
+                var data2 = eval(data);
+                console.log(data2);
+                for(var i in data2){
+                    if(enterprises.indexOf(data2[i].id)==-1) {
+                        enterprises.push(data2[i].id);
+                        $("#enterpriseInfo").append("<tr><td>" + data2[i].id + "</td>" +
+                            "<td>" + data2[i].name + "</td>" +
+                            "<td>" + data2[i].address + "</td>" +
+                            "<td>" + data2[i].hR + "</td></tr>")
+                    }
+                }
+            }
+        })
+    })
+    var recruits = [];
+    $("#getList").click(function () {
+        $("#nav").nextAll().addClass("display-none");
+        $("#table4").removeClass("display-none");
+        $.ajax({
+            method:"POST",
+            url:"/getListOfRecruit",
+            success:function (data) {
+                var data2 = eval(data);
+                for(var i in data2){
+                    if(recruits.indexOf(data2[i].id)==-1){
+                        recruits.push(data2[i].id);
+                        $("#listInfo").append("<tr><td>"+data2[i].id+"</td>" +
+                            "<td>"+data2[i].name+"</td>" +
+                            "<td>"+data2[i].post+"</td>" +
+                            "<td>"+data2[i].salary+"</td>" +
+                            "<td>"+data2[i].address+"</td>" +
+                            "<td><button onclick='deleteFromList(this)'>删除</button></td></tr>")
+                    }
+                }
+            }
+        });
+    });
+    function deleteStudent(obj) {
+        var tmp = obj;
+        var msg = {};
+        msg["id"] = $(tmp).parent().siblings(":first").text();
+        $.ajax({
+            method:"POST",
+            data:JSON.stringify(msg),
+            url:"/deleteStudent",
+            dataType:"JSON",
+            contentType:"application/json;charset=UTF-8",
+            success:function (data) {
+                alert("删除成功！");
+                window.location.reload();
+            },
+            error:function () {
+                alert("删除失败！");
+            }
+        });
+    }
+    function deleteFromList(obj) {
+        var tmp = obj;
+        var msg = {};
+        msg["id"] = $(tmp).parent().siblings(":first").text();
+        console.log(msg);
+        $.ajax({
+            method:"POST",
+            dataType:"JSON",
+            data:JSON.stringify(msg),
+            url:"/deleteFromList",
+            contentType:"application/json;charset=UTF-8",
+            success:function (data) {
+                alert("删除成功！");
+                window.location.reload();
+            },
+            error:function (data) {
+                alert("删除失败！");
+            }
+        })
+    }
+    var mylist = [];
+    $("#getResume").click(function () {
+        $("#nav").nextAll().addClass("display-none");
+        $("#table3").removeClass("display-none");
+        $.ajax({
+            method:"POST",
+            dataType:"JSON",
+            contentType:"application/json;charset=UTF-8",
+            url:"getAllApplyInfo",
+            success:function (data) {
+                var data2 = eval(data);
+                console.log(data2);
+                for (var i in data2){
+                    console.log("id:"+data2[i]["id"])
+                    if(mylist.indexOf(data2[i]["id"])==-1){
+                        mylist.push(data2[i]["id"]);
+                        if(data2[i]["flag"]==true){
+                            var msg = "已被录取";
+                            $("#applyInfoAdmin").append("<tr><td>"+data2[i]["s_id"]+"</td>" +
+                                "<td>"+data2[i]["s_name"]+"</td>" +
+                                "<td>"+data2[i]["e_name"]+"</td>" +
+                                "<td>"+data2[i]["post"]+"</td>" +
+                                "<td>"+msg+"</td></tr>")
+                        }else{
+                            var msg = "未被录取";
+                            $("#applyInfoAdmin").append("<tr><td>"+data2[i]["s_id"]+"</td>" +
+                                "<td>"+data2[i]["s_name"]+"</td>" +
+                                "<td>"+data2[i]["e_name"]+"</td>" +
+                                "<td>"+data2[i]["post"]+"</td>" +
+                                "<td>"+msg+"</td></tr>")
+                        }
+                    }
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

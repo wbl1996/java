@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: recruit-website
+  datasource:
+    url: jdbc:mysql://localhost:3306/recruit
+    password: wbl.123
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 5555

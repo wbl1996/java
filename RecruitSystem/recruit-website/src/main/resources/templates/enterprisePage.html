@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>enterprise</title>
+    <link type="text/css" rel="stylesheet" href="../static/asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+    <style>
+        .info{
+            margin-top: 20px;
+            display: block;
+            padding:60px;
+            font-family: 宋体;
+            font-size: 18px;
+            color: #8c8c8c;
+            font-weight: bold;
+        }
+        .pos{
+            margin-top: 20px;
+        }
+        .welcome{
+            padding: 10px;
+            font-size: 12px;
+            font-family: "宋体";
+        }
+        .display-none{
+            display: none;
+        }
+        .logo{
+            margin: 20px 0 0 0;
+        }
+        .row-margin{
+            margin-top: 10px;
+        }
+        a{
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="head-logo">
+    <div class="col-md-8">
+        <img src="../static/asserts/image/logo.png" th:src="@{/asserts/image/logo.png}" class="logo">
+    </div>
+    <div class="col-md-4 welcome text-right">
+        欢迎您，[[${session.enterprise.getName()}]]！
+        <a  href="/logout">退出</a>
+    </div>
+</div>
+<nav class="navbar navbar-default pos" role="navigation" id="nav">
+    <div class="container">
+        <!--<div class="navbar-header">-->
+        <!--<a id="getInfo" href="#" class="navbar-brand">个人信息</a>-->
+        <!--</div>-->
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a id="getInfo" class="active navbar-brand">公司信息</a></li>
+                <li><a id="getRecruit" class="navbar-brand">招聘信息</a></li>
+                <li><a id="getApplyList" class=navbar-brand"">应聘信息</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="info" class="info">
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p>
+</div>
+<div class="container display-none" id="recruit">
+    <!--<form class=form-horizontal role="form" th:action="@{/setRecruit}" method="post">-->
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="code">组织机构代码::</label>
+            <div class="col-md-5">
+                <input class="form-control" id="code" name="code">
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="name">公司名称:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="name" name="name">
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="address">公司地址:</label>
+          <div class="col-md-5">
+              <input class="form-control" id="address" name="address">
+         </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="post">招聘岗位:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="post" name="post">
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="salary">薪金:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="salary" name="salary">
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="language">语言:</label>
+             <div class="col-md-5">
+                <input class="form-control" id="language" name="language">
+             </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="skill">技能:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="skill" name="skill">
+            <!--<textarea class="form-control" rows="2" id="skill" name="skill"></textarea>-->
+         </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="education">学历要求:</label>
+             <div class="col-md-5">
+                 <input class="form-control" id="education" name="education">
+            <!--<textarea class="form-control" rows="3" id="evaluation" name="evaluation"></textarea>-->
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="experience">经历:</label>
+            <div class="col-md-5">
+                <!--<input class="form-control" id="experience">-->
+                <textarea class="form-control" rows="3" id="experience" name="experience"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="extra">额外信息:</label>
+            <div class="col-md-5">
+                <!--<input class="form-control" id="honor">-->
+                <textarea class="form-control" rows="3" id="extra" name="extra"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-2">
+                    <button class="btn btn-default" id="submit">提交</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="reset" class="btn btn-default" id="reset">清空</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--</form>-->
+</div>
+<div id="recruitInfo" class="recruitInfo info display-none">
+    <p id="Rid"></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p><button id="delete" class="btn btn-default">删除</button></p>
+</div>
+
+<div class="container display-none" id="applyListContainer">
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <td>学号</td>
+            <td>姓名</td>
+            <td>岗位</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody  id="applyList"></tbody>
+    </table>
+</div>
+<script th:src="@{/asserts/js/jquery.js}"></script>
+<script>
+    //$("#getInfo").click(function () {
+    $("#nav").nextAll().addClass("display-none");
+    $("#info").removeClass("display-none");
+    $.ajax({
+        method:"POST",
+        url:"/getEnterpriseInfo",
+        dataType:"json",
+        success:function (data) {
+            $("#info>p:eq(0)").text("组织机构代码:"+data["id"]);
+            $("#info>p:eq(1)").text("公司名称:"+data["name"]);
+            $("#info>p:eq(2)").text("地址:"+data["address"]);
+            $("#info>p:eq(3)").text("HR:"+data["HR"]);
+        }
+    })
+    //})
+    $("#getInfo").click(function () {
+    $("#nav").nextAll().addClass("display-none");
+    $("#info").removeClass("display-none");
+    $.ajax({
+        method:"POST",
+        url:"/getEnterpriseInfo",
+        dataType:"json",
+        success:function (data) {
+            $("#info>p:eq(0)").text("组织机构代码:"+data["id"]);
+            $("#info>p:eq(1)").text("公司名称:"+data["name"]);
+            $("#info>p:eq(2)").text("地址:"+data["address"]);
+            $("#info>p:eq(3)").text("HR:"+data["HR"]);
+        }
+    })
+    })
+    $("#getRecruit").click(function () {
+        $.ajax({
+            method:"POST",
+            dataType:"json",
+            url:"/queryRecruit",
+            success:function (data) {
+                if(data["id"]!=null){
+                    $("#nav").nextAll().addClass("display-none");
+                    $("#recruitInfo").removeClass("display-none");
+                    $("#recruitInfo>p:eq(0)").text("组织机构代码:"+data["id"]);
+                    $("#recruitInfo>p:eq(1)").text("公司名称:"+data["name"]);
+                    $("#recruitInfo>p:eq(2)").text("公司地址:"+data["address"]);
+                    $("#recruitInfo>p:eq(3)").text("招聘岗位:"+data["post"]);
+                    $("#recruitInfo>p:eq(4)").text("薪金:"+data["salary"]);
+                    $("#recruitInfo>p:eq(5)").text("语言要求:"+data["language"]);
+                    $("#recruitInfo>p:eq(6)").text("技能要求:"+data["skill"]);
+                    $("#recruitInfo>p:eq(7)").text("经验要求:"+data["experience"]);
+                    $("#recruitInfo>p:eq(8)").text("学历要求:"+data["education"]);
+                    $("#recruitInfo>p:eq(9)").text("额外信息:"+data["extra"]);
+                }else{
+                    $("#nav").nextAll().addClass("display-none");
+                    $("#recruit").removeClass("display-none");
+                }
+            }
+        })
+    })
+    $("#submit").click(function () {
+        var msg = {};
+        msg["id"] = $("#code").val();
+        msg["name"] = $("#name").val();
+        msg["address"] = $("#address").val();
+        msg["post"] = $("#post").val();
+        msg["salary"] = $("#salary").val();
+        msg["language"] = $("#language").val();
+        msg["skill"] = $("#skill").val();
+        msg["education"] = $("#education").val();
+        msg["experience"] = $("#experience").val();
+        msg["extra"] = $("#extra").val();
+        $.ajax({
+            method:"POST",
+            dataType:"JSON",
+            url:"/setRecruit",
+            contentType:"application/json;charset=utf-8",
+            data:JSON.stringify(msg),
+            success:function (data) {
+                alert("添加成功！");
+                 window.location.reload();
+            }
+        })
+    })
+    $("#delete").click(function () {
+        var msg = {};
+        msg["id"] = $("#Rid").val();
+        $.ajax({
+            method:"POST",
+            dataType:"json",
+            data:JSON.stringify(msg),
+            url:"/deleteRecruit",
+            success:function () {
+                alert("删除成功！");
+                window.location.reload();
+            }
+        })
+    })
+    var applylist = []
+    $("#getApplyList").click(function () {
+        $("#nav").nextAll().addClass("display-none");
+        $("#applyListContainer").removeClass("display-none");
+        $.ajax({
+            method:"POST",
+            dataType:"json",
+            url:"/getApplyList",
+            success:function (data) {
+                var data2 = eval(data);
+                console.log(data2);
+                for(var i in data2){
+                    if(data2[i][5]==false) {
+                        if (applylist.indexOf(data2[i].id) == -1) {
+                            applylist.push(data2[i].id);
+                            $("#applyList").append("<tr><td>" + data[i][1] + "</td>" +
+                                "<td>" + data2[i][2] + "</td>" +
+                                "<td>" + data2[i][4] + "</td>" +
+                                "<td><button class='btn btn-default' id='applybtn' onclick='apply(this)'>录用</button></td></tr>")
+                        }
+                    }
+                }
+            }
+        })
+    })
+    function apply(obj) {
+        var id = $(obj).parent().siblings(":first").text();
+        var msg = {"s_id":id};
+        console.log(id);
+        $.ajax({
+            method:"POST",
+            data:JSON.stringify(msg),
+            dataType:"JSON",
+            contentType:"application/json;charset:UTF-8",
+            url:"/apply",
+            success:function (data) {
+                if(data["flag"]==1) {
+                    alert("已录取!");
+                    window.location.reload();
+                }else{
+                    alert("录取失败！");
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

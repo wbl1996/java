@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>studentPage</title>
+    <link type="text/css" rel="stylesheet" href="../static/asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+<style>
+    .pos{
+        margin-top: 20px;
+    }
+    .welcome{
+        padding: 10px;
+        font-size: 12px;
+        font-family: "宋体";
+    }
+    .info{
+        margin-top: 20px;
+        display: block;
+        padding:60px;
+        font-family: 宋体;
+        font-size: 18px;
+        color: #8c8c8c;
+        font-weight: bold;
+    }
+    .suggest{
+        margin-top: 20px;
+        padding: 40px;
+        font-family: 宋体;
+        font-size: 14px;
+    }
+    .display-none{
+        display: none;
+    }
+    #resume{
+        margin-top: 20px;
+    }
+    .logo{
+        margin: 20px 0 0 0;
+    }
+    a{
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .row-margin{
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container" id="head-logo">
+    <div class="col-md-8">
+        <img src="../static/asserts/image/logo.png" th:src="@{/asserts/image/logo.png}" class="logo">
+    </div>
+    <div class="col-md-4 welcome text-right">
+        欢迎您，[[${session.student.getName()}]]！
+        <a  href="/logout">退出</a>
+    </div>
+</div>
+<nav class="navbar navbar-default pos" role="navigation" id="nav">
+    <div class="container">
+        <!--<div class="navbar-header">-->
+            <!--<a id="getInfo" href="#" class="navbar-brand">个人信息</a>-->
+        <!--</div>-->
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a id="getSuggest" class="active navbar-brand">就业指导</a></li>
+                <li><a id="getInfo" class="navbar-brand">个人信息</a></li>
+                <li><a id="getResume" class="navbar-brand">简历</a></li>
+                <li><a id="getList" class=navbar-brand"">招聘列表</a></li>
+                <li><a id="appliedInfo" class=navbar-brand"">录用列表</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="suggest" id="suggest">
+    <h3 class="text-center">就业指导</h3>
+    <p>一 个人选择与社会需要相辅相成
+        现代社会发展需要很多人才，社会需要决定着求职的环境。社会需要、市场需要，就是就业选择的方向。首先，一个职业的前途是与社会需要息息相关的，只有准确把握社会需要，紧跟时代发展步伐，选择的职业才有发展潜力，个人在职业方面的努力和投入才会增值，个人才能获得比较大的发展空间，自我发展才会有可靠的保障。其次，职业选择本身还是一种双向选择的过程，个人选择单位，单位选择个人。一个人在做职业选择时，还要考虑用人单位的需求，知道自己的优势在哪，这样才能跟单位配对成功。  再次，职业选择还要符合自己的实际。每个人的性格不同，每个人都有自己的兴趣爱好，因此每个人要根据自己的实际和需求来选择职业。
+        所以在选择职业时，不能完全凭主观意志和愿望行事。如果个人的择业脱离了社会和市场需要，他将很难被社会接纳。只有把社会需要与个人的理想、抱负和志趣结合起来，才有成功的希望！</p>
+</div>
+<div class="container display-none" id="resume">
+    <!--<form class=form-horizontal role="form">-->
+    <div class="row-margin row">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="number">学号:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="number" name="number">
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="name">姓名:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="name" name="name">
+            </div>
+        </div>
+    </div>
+    <div class="row-margin row">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="major">专业:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="major" name="major">
+            </div>
+        </div>
+    </div>
+    <div class="row-margin row">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="post">求职岗位:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="post" name="post">
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="language">语言:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="language" name="language">
+            </div>
+        </div>
+    </div>
+    <div class="row-margin row">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="skill">技能:</label>
+            <div class="col-md-5">
+                <!--<input class="form-control" id="skill">-->
+                <textarea class="form-control" rows="2" id="skill" name="skill"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="evaluation">自我评价:</label>
+            <div class="col-md-5">
+                <!--<input class="form-control input-lg" id="evaluation">-->
+                <textarea class="form-control" rows="3" id="evaluation" name="evaluation"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row-margin row">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="experience">经历:</label>
+            <div class="col-md-5">
+                <!--<input class="form-control" id="experience">-->
+                <textarea class="form-control" rows="3" id="experience" name="experience"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="honor">荣誉:</label>
+            <div class="col-md-5">
+                <!--<input class="form-control" id="honor">-->
+                <textarea class="form-control" rows="3" id="honor" name="honor"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row-margin row">
+        <div class="form-group">
+            <div class="row">
+            <div class="col-md-offset-2 col-md-2">
+                <button class="btn btn-default" id="submit">提交</button>
+            </div>
+            <div class="col-md-2">
+                <button type="reset" class="btn btn-default" id="reset">清空</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!--</form>-->
+</div>
+<div id="resumeinfo" class="info display-none">
+    <p id="myid"></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p><button id="delete" class="btn btn-default">删除</button></p>
+</div>
+<div id="info" class="info display-none">
+    <p></p>
+    <hr>
+    <p></p>
+    <hr>
+    <p></p>
+    <hr>
+    <p></p>
+</div>
+<div id="detailInfo" class="info display-none">
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p></p><hr>
+    <p><a href="#"  onclick='goback()'>返回</a></p><hr>
+</div>
+<div class="container display-none" id="listContainer">
+    <table class="table text-center table-responsive">
+    <thead>
+    <tr>
+        <td>组织机构代码</td>
+        <td>公司名称</td>
+        <td>岗位</td>
+        <td>薪金</td>
+        <td>公司地址</td>
+        <td>查看</td>
+        <td>提交</td>
+    </tr>
+    </thead>
+    <tbody id="list">
+
+    </tbody>
+</table>
+</div>
+<div class="display-none info container" id="appliedContainer">
+    <ul id="appliedInfoList"></ul>
+</div>
+<script th:src="@{/asserts/js/jquery.js}"></script>
+<script>
+    $("#getInfo").click(function () {
+        $("#nav").nextAll().addClass("display-none");
+        $("#info").removeClass("display-none");
+        $.ajax({
+            type:"POST",
+            data:{},
+            dataType:"json",
+            url:"/getInfo",
+            success:function (data) {
+                $("#info>p:eq(0)").text("学号:"+data["id"]);
+                $("#info>p:eq(1)").text("姓名:"+data["name"]);
+                $("#info>p:eq(2)").text("年级:"+data["grade"]);
+                $("#info>p:eq(3)").text("性别:"+data["sex"]);
+            }
+
+        })
+    })
+    $("#getResume").click(function () {
+        $.ajax({
+            type:"POST",
+            dataType:"json",
+            url:"/queryResume",
+            success:function (data) {
+                if(data["id"]!=null){
+                    $("#nav").nextAll().addClass("display-none");
+                    $("#resumeinfo").removeClass("display-none");
+                    $("#resumeinfo>p:eq(0)").text("学号:"+data["id"]);
+                    $("#resumeinfo>p:eq(1)").text("姓名:"+data["name"]);
+                    $("#resumeinfo>p:eq(2)").text("专业:"+data["major"]);
+                    $("#resumeinfo>p:eq(3)").text("求职岗位:"+data["post"]);
+                    $("#resumeinfo>p:eq(4)").text("语言:"+data["language"]);
+                    $("#resumeinfo>p:eq(5)").text("技能:"+data["skill"]);
+                    $("#resumeinfo>p:eq(6)").text("自我评价:"+data["evaluation"]);
+                    $("#resumeinfo>p:eq(7)").text("经历:"+data["experience"]);
+                    $("#resumeinfo>p:eq(8)").text("荣誉:"+data["honor"]);
+                }else{
+                    $("#nav").nextAll().addClass("display-none");
+                    $("#resume").removeClass("display-none");
+                }
+            }
+        })
+
+    })
+    $("#getSuggest").click(function () {
+        $("#suggest").removeClass("display-none").nextAll().addClass("display-none");
+    })
+
+    $("#submit").click(function () {
+        var msg = {};
+        msg["id"] = $("#number").val();
+        msg["name"] = $("#name").val();
+        msg["major"] = $("#major").val();
+        msg["post"] = $("#post").val();
+        msg["language"] = $("#language").val();
+        msg["skill"] = $("#skill").val();
+        msg["evaluation"] = $("#evaluation").val();
+        msg["experience"] = $("#experience").val();
+        msg["honor"] = $("#honor").val();
+        console.log(msg);
+        $.ajax({
+            type:"POST",
+            dataType:"json",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(msg),
+            url:"/setResume",
+            success:function (data) {
+                if(data["flag"]=="1"){
+                    alert("添加成功！");
+                    window.location.reload();
+                }else{
+                    alert("添加失败！");
+                }
+            }
+        })
+    });
+    $("#delete").click(function () {
+        $.ajax({
+            method:"POST",
+            url:"/deleteResume",
+            success:function (data) {
+                    alert("删除成功！");
+                    window.location.reload();
+            }
+        })
+    })
+    var recruitlist = [];
+    $("#getList").click(function () {
+        $("#nav").nextAll().addClass("display-none");
+        $("#listContainer").removeClass("display-none");
+        $.ajax({
+            method:"POST",
+            url:"/getList",
+            success:function (data) {
+                var data2 = eval(data);
+                console.log(data2);
+                for(var i in data2) {
+                    console.log(data2[i]["id"]);
+                    if(recruitlist.indexOf(data2[i]["id"])==-1) {
+                        recruitlist.push(data2[i]["id"]);
+                        $("#list").append("<tr><td>" + data2[i].id + "</td>" +
+                            "<td>" + data2[i].name + "</td>" +
+                            "<td>" + data2[i].post + "</td>" +
+                            "<td>" + data2[i].salary + "</td>" +
+                            "<td>" + data2[i].address + "</td>" +
+                            "<td><a class='detail' onclick='getDetail(this)'>查看具体招聘信息</a></td>" +
+                            "<td><button id='uploadResume' onclick='uploadResume(this)'>提交简历</button></td></tr>");
+                    }
+                }
+            }
+        })
+    })
+    function getDetail(obj) {
+        var data = $(obj).parent().siblings(":first").text();
+        var id = data.substr(7,5);
+        console.log(id);
+        var msg = {};
+        msg["id"] = id;
+        $.ajax({
+            method:"POST",
+            dataType:"json",
+            data:JSON.stringify(msg),
+            contentType:"application/json;charset:UTF-8",
+            url:"/getDetail",
+            success:function (data) {
+                $("#nav").nextAll().addClass("display-none");
+                $("#detailInfo").removeClass("display-none");
+                if(data["id"]!=null) {
+                    $("#detailInfo>p:eq(0)").text("组织结构代码:" + data["id"]);
+                    $("#detailInfo>p:eq(1)").text("公司名称:" + data["name"]);
+                    $("#detailInfo>p:eq(2)").text("公司地址:" + data["address"]);
+                    $("#detailInfo>p:eq(3)").text("招聘岗位:" + data["post"]);
+                    $("#detailInfo>p:eq(4)").text("薪金:" + data["salary"]);
+                    $("#detailInfo>p:eq(5)").text("语言要求:" + data["language"]);
+                    $("#detailInfo>p:eq(6)").text("技能要求:" + data["skill"]);
+                    $("#detailInfo>p:eq(7)").text("经验要求:" + data["experience"]);
+                    $("#detailInfo>p:eq(8)").text("学历要求:" + data["education"]);
+                    $("#detailInfo>p:eq(9)").text("额外信息:" + data["extra"]);
+                }else{
+                    alert("查询失败!");
+                }
+            }
+        })
+    }
+    function goback() {
+        window.location.reload();
+    }
+    function uploadResume(obj) {
+        var data1 = $(obj).parent().siblings(":eq(1)").text();
+        var e_name = data1.substr(data1.indexOf(":")+1);
+        var data2 = $(obj).parent().siblings(":eq(2)").text();
+        var post = data2.substr(data2.indexOf(":")+1);
+        var msg = {"e_name":e_name,"post":post};
+        $.ajax({
+            method:"POST",
+            data:JSON.stringify(msg),
+            dataType:"json",
+            url:"/uploadResume",
+            contentType:"application/json;charset=UTF-8",
+            success:function (data) {
+                alert("上传成功！");
+                window.location.reload();
+            }
+        })
+    }
+    var appliedList = []
+    $("#appliedInfo").click(function () {
+        $("#nav").nextAll().addClass("display-none");
+        $("#appliedContainer").removeClass("display-none");
+        $.ajax({
+            method:"POST",
+            contentType:"application/json;charset=UTF-8",
+            url:"/getAppliedInfo",
+            success:function (data) {
+                var data2 = eval(data);
+                console.log(data2);
+                for(var i in data2){
+                    if(data2[i][5]==true){
+                        if(appliedList.indexOf(data2[i][0])==-1){
+                            appliedList.push(data2[i][0]);
+                            $("#appliedContainer").append("<p>你已被"+data2[i][3]+"公司录用！</p>")
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link type="text/css" rel="stylesheet" href="../static/asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+    <style>
+        .center{
+            margin-top: 40px;
+        }
+        .btn-color{
+            background-color:rgb(51,105,232) ;
+        }
+        .display-none{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default pos" role="navigation" id="nav">
+    <div class="container">
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a id="signup1" class="active navbar-brand">学生注册</a></li>
+                <li><a id="signup2" class="navbar-brand">企业注册</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container center" id="studentSignup">
+    <form class="form-horizontal" role="form" th:action="@{/studentSignup}" method="post">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="number">学号:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="number" name="id">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="number">姓名:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="name" name="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="grade">年级:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="grade" name="grade">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="password">密码:</label>
+            <div class="col-md-5">
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">性别:</label>
+            <div class="radio col-md-1">
+                <label>
+                    <input name="sex" type="radio" value="男" checked>男
+                </label>
+            </div>
+            <div class="radio col-md-1">
+                <label>
+                    <input name="sex" type="radio" value="女">女
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="submit" class="btn btn-default btn-block btn-color" style="margin-top: 20px">提交</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="reset" class="btn btn-default btn-block btn-color">清空</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container center display-none" id="enterpriseSignup">
+    <form class="form-horizontal" role="form" th:action="@{/enterpriseSignup}" method="post">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="code">组织机构代码:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="code" name="code">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="enterpriseName">公司名称:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="enterpriseName" name="enterpriseName">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="address">地址:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="address" name="address">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Epassword">密码:</label>
+            <div class="col-md-5">
+                <input type="password" class="form-control" id="Epassword" name="Epassword">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="HR">HR:</label>
+            <div class="col-md-5">
+                <input class="form-control" id="HR" name="HR">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="submit" class="btn btn-default btn-block btn-color" style="margin-top: 20px">提交</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="reset" class="btn btn-default btn-block btn-color">清空</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script th:src="@{/asserts/js/jquery.js}"></script>
+<script>
+    $("#signup1").click(function () {
+        $("#studentSignup").removeClass("display-none").nextAll().addClass("display-none");
+    })
+    $("#signup2").click(function () {
+        $("#enterpriseSignup").removeClass("display-none").prev().addClass("display-none");
+    })
+</script>
+</body>
+</html>
